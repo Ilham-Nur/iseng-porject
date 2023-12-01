@@ -87,7 +87,6 @@
             </div>
             <div class="modal-body">
                 <table class="table">
-                    <tbody>
                         <tr>
                             <th scope="row">Nama</th>
                             <td id="username"></td>
@@ -108,12 +107,11 @@
                             <th scope="row">Golongan Darah</th>
                             <td id="golDarah"></td>
                         </tr>
-                    </tbody>
+                        <tr>
+                            <th scope="row"><h6>Preview Image</h6></th>
+                            <td id="golDarah"><img id="userImage" alt="User Image" alt="Preview Image" class="img-fluid" width="100" height="100" ></td>
+                        </tr>
                 </table>
-                <div class="mt-3">
-                    <h6>Preview Image</h6>
-                    <img id="userImage" alt="User Image" alt="Preview Image" class="img-fluid">
-                </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -212,7 +210,7 @@
             });
 
             // Trigger pencarian setiap kali keyup pada input
-            $('#txsearch').on('keyup', function () {
+            $('#txSearch').on('keyup', function () {
                 dataTable.search(this.value).draw();
             });
         });

@@ -14,8 +14,7 @@
           $('#alamat').text(alamat);
           $('#golDarah').text(golDarah);
 
-          $('#userImage').attr('src', imageUser);
-         
+          $('#userImage').attr('src', 'img/'+ imageUser);                  
        });
     });
     </script>
