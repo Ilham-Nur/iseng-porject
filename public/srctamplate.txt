@@ -1,0 +1,430 @@
+<input id="txSearch" type="text" style="width: 250px;"
+
+const loadSpin = `<div class="d-flex justify-content-center align-items-center mt-5">
+    <div class="spinner-border d-flex justify-content-center align-items-center text-danger" role="status"><span class="visually-hidden">Loading...</span></div>
+</div>`;
+
+// Fungsi untuk menampilkan spinner
+function showSpinner() {
+    $('#containerDevice').html(loadSpin);
+}
+
+// Fungsi untuk menyembunyikan spinner
+function hideSpinner() {
+    $('#containerDevice').html('');
+}
+
+$(document).ready(function () {
+    showSpinner();
+
+    function initializeDataTable() {
+        return $('#tableDevice').DataTable({
+            searching: false,
+            lengthChange: false,
+            "bSort": true,
+            pageLength: 10,
+            responsive: true,
+            "aaSorting": [],
+        });
+    }
+
+    function fetchData(txtSearch) {
+        $.ajax({
+            url: '{{ route('getlistdevice') }}',
+            type: 'GET',
+            data: {
+                txSearch: txtSearch
+            },
+            success: function (data) {
+                hideSpinner();
+                $('#containerDevice').html(data);
+                initializeDataTable();
+            }
+        });
+    }
+    fetchData('');
+
+
+    $('#txSearch').on('keyup', function () {
+        var txtSearch = $(this).val().toUpperCase();
+
+        showSpinner();
+        fetchData(txtSearch);
+    });
+});
+
+
+   public function getlistdevice(Request $request)
+    {
+        $txSearch = '%' . strtoupper(trim($request->txSearch)) . '%';
+
+        $q = "SELECT
+            id,
+            workarea,
+            dept,
+            ipAddress,
+            port,
+            indicator,
+            isActive,
+            (SELECT id from tbl_masterworkarea where name = workarea) as idworkarea
+        FROM
+            tbl_masterdevice
+        WHERE
+            UPPER(workarea) LIKE UPPER('%$txSearch%')
+            OR UPPER(dept) LIKE UPPER('%$txSearch%')
+            OR UPPER(ipAddress) LIKE UPPER('%$txSearch%')
+            OR UPPER(port) LIKE UPPER('%$txSearch%')
+            OR UPPER(indicator) LIKE UPPER('%$txSearch%');";
+
+        $data = DB::select($q);
+
+    
+
+        $output = '<table id="tableDevice" class="table table-responsive table-hover">
+            <thead>
+                <tr class="table-danger ">
+                    <th scope="col">No</th>
+                    <th scope="col">Work Area</th>
+                    <th scope="col">Department</th>
+                    <th scope="col">IP Address</th>
+                    <th scope="col">Port</th>
+                    <th scope="col">Indicator</th>
+                    <th scope="col">IsActive</th>
+                    <th scope="col">Action</th>
+                </tr>
+            </thead>
+            <tbody>';
+
+        $counter = 1;
+
+        foreach ($data as $r) {
+            
+            $output .= '
+            <tr>
+                <td class="p-3">' . $counter . '</td>
+                <td class="p-3">' . $r->workarea . '</td>
+                <td class="p-3">' . $r->dept . '</td>
+                <td class="p-3">' . $r->ipAddress . '</td>
+                <td class="p-3">' . $r->port . '</td>
+                <td class="p-3">' . $r->indicator . '</td>';
+        
+        if ($r->isActive == '1') {
+            $output .= '<td class="p-3">
+                           <img src="/icons/Done.svg" alt="Done image" />
+                       </td>';
+        } else {
+            $output .= '<td class="p-3">
+                           <img src="/icons/Cancel.svg" alt="Cancel image" />
+                       </td>';
+        }
+        
+        $output .= '
+                <td class="p-3">
+                <a data-id="'. $r->id .'" data-workarea="'.  $r->workarea .' " data-dept="'. $r->dept .'"  data-ipAddress="'.  $r->ipAddress .'"  data-port="'.   $r->port .'"  data-indicator="'. $r->indicator .'" data-isActive="'.  $r->isActive .'" class="btn btnEditDevice" data-bs-toggle="modal">
+                            <img src="/icons/Edit.svg" alt="editimage" />  
+                        </a>
+            </tr>';
+                    
+            $counter++;
+        }
+        
+        $output .= '</tbody></table>';
+        return $output;
+        
+    }
+
+
+$(document).ready(function () {
+        $('#activeStatus').change(function () {
+            if ($(this).prop('checked')) {
+                $('#editactiveStatus').val(1);
+            } else {
+                $('#editactiveStatus').val(0);
+            }
+        });
+    });
+
+
+    // Open Modal Add Device
+    $('#btnAddDevice').click(e => {
+        e.preventDefault();
+        $('#ModalAddDevice').modal('show');
+    });
+
+    // Dropdown Select2 Work Area
+    $( '#addWorkAreaDevice' ).select2( {
+        theme: "bootstrap-5",
+        dropdownParent: $('#ModalAddDevice'),
+    });
+
+    // Dropdown Select2 Department
+    $( '#addDepartmentDevice' ).select2( {
+        theme: "bootstrap-5",
+        dropdownParent: $('#ModalAddDevice'),
+    });
+
+    $(document).ready(function () {
+        // Ketika formulir dikirim
+        $("#addDeviceForm").submit(function (e) {
+            e.preventDefault();
+
+            // Ambil nilai input nama, kategori, startHour, dan endHour
+            const addWorkArea = $("#addWorkAreaDevice").val();
+            const addDepartment = $("#addDepartmentDevice").val();
+            const addIPAddress = $("#addIpAddrDevice").val();
+            const addPort = $("#addPortDevice").val();
+            const addInOut = $("#addInOutDevice").val();
+            const activeStatus = $('#activeStatus').is(':checked') ? 1 : 0;
+            const csrfToken = $('meta[name="csrf-token"]').attr('content');
+            
+
+            console.log(addWorkArea, addDepartment, addIPAddress, addPort, addInOut, activeStatus  );
+
+            const formData = new FormData();
+            formData.append('addWorkArea', addWorkArea);
+            formData.append('addDepartment', addDepartment);
+            formData.append('addIPAddress', addIPAddress);
+            formData.append('addPort', addPort);
+            formData.append('addInOut', addInOut);
+            formData.append('activeStatus', activeStatus);
+            formData.append('_token', csrfToken);
+
+
+            // Validasi value select work area
+            if (!addWorkArea) {
+                $("#errAddWorkArea").removeClass("d-none");
+            } else {
+                $("#errAddWorkArea").addClass("d-none");
+            }
+            
+            // Validasi value select department
+            if (!addDepartment) {
+                $("#errAddDepartment").removeClass("d-none");
+            } else {
+                $("#errAddDepartment").addClass("d-none");
+            }
+
+            // Validasi value input ip address
+            if (!addIPAddress) {
+                $("#errAddIpAddr").removeClass("d-none");
+            } else {
+                $("#errAddIpAddr").addClass("d-none");
+            }
+
+            // Validasi value input port
+            if (!addPort) {
+                $("#errAddPort").removeClass("d-none");
+            } else {
+                $("#errAddPort").addClass("d-none");
+            }
+
+            // Validasi value select in out
+            if (!addInOut) {
+                $("#errAddInOut").removeClass("d-none");
+            } else {
+                $("#errAddInOut").addClass("d-none");
+            }
+
+            // Cek apakah semua data sudah diisi
+            if (addWorkArea && addDepartment && addIPAddress && addPort && addInOut) {
+                // Tampilkan SweetAlert Sukses
+                Swal.fire({
+                    title: "Do you want to Add Device?",
+                    icon: 'question',
+                    showCancelButton: true,
+                    confirmButtonColor: '#CD202E',
+                    cancelButtonColor: '#6e7881',
+                    confirmButtonText: 'Yes',
+                    cancelButtonText: 'No',
+                    reverseButtons: true
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        // User clicked "Yes," proceed with the AJAX request
+                        $.ajax({
+                            type: 'POST',
+                            url: '{{ route('insertdevice' ) }}',
+                            data: formData,
+                            processData: false,
+                            contentType: false,
+                            success: function (response) {
+                                    Swal.fire({
+                                        title: "Success",
+                                        text: "Device has been Added",
+                                        icon: "success",
+                                        showConfirmButton: false,
+                                        timer: 3000
+                                    }).then((result) => {
+                                        showSpinner();
+                                        function initializeDataTable() {
+                                            return $('#tableDevice').DataTable({
+                                                searching: false,
+                                                lengthChange: false,
+                                                "bSort": true,
+                                                pageLength: 10,
+                                                responsive: true,
+                                                "aaSorting": [],
+                                            });
+                                        }
+                                        function fetchData(txtSearch) {
+                                            $.ajax({
+                                                url: '{{ route('getlistdevice') }}',
+                                                type: 'GET',
+                                                data: {
+                                                    txSearch: txtSearch
+                                                },
+                                                success: function (data) {
+                                                    hideSpinner();
+                                                    $('#containerDevice').html(data);
+                                                    initializeDataTable();
+                                                }
+                                            });
+                                        }
+                                        fetchData('');
+                                        $('#txSearch').on('keyup', function () {
+                                            var txtSearch = $(this).val().toUpperCase();
+
+                                            showSpinner();
+                                            fetchData(txtSearch);
+                                        });
+                                        $('#ModalAddDevice').modal('hide');
+                                    });
+                                },
+                                error: function (xhr) {
+                                if (xhr.status === 400) {
+                                    Swal.fire({
+                                        title: xhr.responseJSON.error,
+                                        icon: 'error',
+                                    });
+                                } else {
+                                    Swal.fire({
+                                        title: 'Error!',
+                                        text: 'An error occurred while adding the device.',
+                                        icon: 'error',
+                                    });
+                                }
+                            }
+                        });
+                    }
+                    // No need to handle the "No" case here, as the modal won't be closed
+                });
+                }
+            });
+
+        // Ketika modal dibatalkan
+        $("#ModalAddDevice").on("hidden.bs.modal", function (e) {
+            resetForm();
+        });
+
+        // Fungsi untuk mereset formulir ke kondisi default
+        function resetForm() {
+            // Reset Value Input
+            $("#addWorkAreaDevice").val("").trigger('change');
+            $("#addDepartmentDevice").val("").trigger('change');
+            $("#addIpAddrDevice").val("");
+            $("#addPortDevice").val("");
+            $("#addInOutDevice").val("");
+
+            // Reset Peringatan
+            $("#errAddWorkArea").addClass("d-none");
+            $("#errAddDepartment").addClass("d-none");
+            $("#errAddIpAddr").addClass("d-none");
+            $("#errAddPort").addClass("d-none");
+            $("#errAddInOut").addClass("d-none");
+        }
+    });
+
+
+
+ public function insertdevice(Request $request)
+    {   
+        $userLogin = Auth::user();
+        $name = $userLogin->name;
+        $emp_no = $userLogin->badge;
+    
+        $currentdate = date('Y-m-d');
+        $currenttime = date('H:i:s');
+        $createby = $userLogin->badge;
+
+        $existingworkarea = DB::table('tbl_masterdevice')
+        ->where('workarea', $request->input('addWorkArea'))
+        ->first();
+
+        if ($existingworkarea) {
+            return response()->json(['error' => 'WorkArea Name already exist.'], 400);
+        }
+
+        $existingipaddres = DB::table('tbl_masterdevice')
+        ->where('ipAddress', $request->input('addIPAddress'))
+        ->first();
+
+        if ($existingipaddres) {
+            return response()->json(['error' => 'IP Addres already exist.'], 400);
+        }
+
+
+    
+        DB::table('tbl_masterdevice')->insert([
+            'workarea' => $request->input('addWorkArea'),
+            'dept' => $request->input('addDepartment'),
+            'ipAddress' => $request->input('addIPAddress'),
+            'port' => $request->input('addPort'),
+            'indicator' => $request->input('addInOut'),
+            'isActive' => $request->input('activeStatus'),
+            'createDate' => $currentdate . ' ' . $currenttime,
+            'createby' => $createby,
+        ]);
+    
+       
+        return response()->json(['message' => 'Device added successfully']);
+    }
+
+    public function updatedevice(Request $request)
+    {   
+        $userLogin = Auth::user();
+        $name = $userLogin->name;
+        $emp_no = $userLogin->badge;
+    
+        $currentdate = date('Y-m-d');
+        $currenttime = date('H:i:s');
+        $createby = $userLogin->badge;
+
+
+        $updatearea = $request->input('updateworkarea');
+        $updatedevice =  $request->input('updateIpAddrDevice');
+
+      
+
+        $updateid = $request->input('id');
+
+        $existingworkareaCount = DB::SELECT("SELECT COUNT(*) As total FROM (
+            SELECT * FROM tbl_masterdevice WHERE tbl_masterdevice.workarea='".$updatearea."' AND id <> ".$updateid."
+            ) AS asda;");
+
+        if ($existingworkareaCount[0]->total > 0) {
+             return response()->json(['error' => 'WorkArea Name already exist.'], 400);
+        }
+    
+        $existingipaddressCount = DB::SELECT("SELECT COUNT(*) As total FROM (
+            SELECT * FROM tbl_masterdevice WHERE tbl_masterdevice.ipAddress='".$updatedevice."' AND id <> ".$updateid."
+            ) AS asda;");
+        
+        if ($existingipaddressCount[0]->total > 0) {
+            return response()->json(['error' => 'IP Address already exist.'], 400);
+        }
+
+
+        DB::table('tbl_masterdevice')
+        ->where('id', $request->input('id'))
+        ->update([
+            'workarea' => $request->input('updateworkarea'),
+            'dept' => $request->input('updateDepartmentDevice'),
+            'ipAddress' => $request->input('updateIpAddrDevice'),
+            'port' => $request->input('updatePortDevice'),
+            'indicator' => $request->input('updateindicator'),
+            'isActive' => $request->input('updateactiveStatus'),
+            'createDate' => $currentdate . ' ' . $currenttime,
+            'createby' => $createby,
+        ]);
+
+        return response()->json(['message' => 'Upadate Device successfully']);
+    }

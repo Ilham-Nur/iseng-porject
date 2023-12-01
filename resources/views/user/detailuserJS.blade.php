@@ -13,9 +13,9 @@
           $('#password').text(password);
           $('#alamat').text(alamat);
           $('#golDarah').text(golDarah);
-    
-          // Atur nilai preview image
-          $('#previewImage').attr('src', 'img/' + username + '.png');
+
+          $('#userImage').attr('src', imageUser);
+         
        });
     });
     </script>
