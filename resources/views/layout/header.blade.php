@@ -21,15 +21,21 @@
 					<span class="text">User</span>
 				</a>
 			</li>
-			<li>
-				<a href="#">
+			<li class="{{ request()->routeIs('lokasidonor') ? 'active' : '' }}">
+				<a href="{{ route('lokasidonor') }}">
 					<i class='bx bxs-map-alt' ></i>
 					<span class="text">Lokasi Donor</span>
 				</a>
 			</li>
 			<li>
 				<a href="#">
-					<i class='bx bxs-donate-blood'></i>
+					<i class='bx bx-donate-blood'></i>
+					<span class="text">Pendonor</span>
+				</a>
+			</li>
+			<li>
+				<a href="#">
+					<i class='bx bxs-bank'></i>
 					<span class="text">Stok Darah</span>
 				</a>
 			</li>

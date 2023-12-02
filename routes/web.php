@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\LokasiDonorController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -23,3 +24,5 @@ Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard
 Route::get('/user', [UserController::class, 'index'])->name('user');
 Route::post('/user', [UserController::class, 'tambahuser'])->name('tambahuser');
 
+//LOKASI DONOR  
+Route::get('/lokasidonor', [LokasiDonorController::class, 'index'])->name('lokasidonor');
