@@ -5,6 +5,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\LokasiDonorController;
 use App\Http\Controllers\PendonorController;
 use App\Http\Controllers\StokDarahController;
+use App\Http\Controllers\RiwayatDonorController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
@@ -36,3 +37,6 @@ Route::get('/pendonor', [PendonorController::class, 'index'])->name('pendonor');
 
 //STOK DARAH
 Route::get('/stokdarah', [StokDarahController::class,'index'])->name('stokdarah');
+
+//RIWAYAT DONOR
+Route::get('/riwayatdonor', [RiwayatDonorController::class, 'index'])->name('riwayatdonor');

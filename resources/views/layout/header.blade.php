@@ -39,8 +39,8 @@
 					<span class="text">Stok Darah</span>
 				</a>
 			</li>
-			<li>
-				<a href="#">
+			<li class="{{ request()->routeIs('riwayatdonor') ? 'active' : '' }}">
+				<a href="{{ route('riwayatdonor') }}">
 					<i class='bx bx-history'></i>
 					<span class="text">Riwayat E-Donor</span>
 				</a>
