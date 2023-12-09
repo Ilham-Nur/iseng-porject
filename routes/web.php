@@ -3,6 +3,8 @@
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\LokasiDonorController;
+use App\Http\Controllers\PendonorController;
+use App\Http\Controllers\StokDarahController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
@@ -28,3 +30,9 @@ Route::post('/user', [UserController::class, 'tambahuser'])->name('tambahuser');
 
 //LOKASI DONOR  
 Route::get('/lokasidonor', [LokasiDonorController::class, 'index'])->name('lokasidonor');
+
+//PENDONOR
+Route::get('/pendonor', [PendonorController::class, 'index'])->name('pendonor');
+
+//STOK DARAH
+Route::get('/stokdarah', [StokDarahController::class,'index'])->name('stokdarah');

@@ -27,16 +27,22 @@
 					<span class="text">Lokasi Donor</span>
 				</a>
 			</li>
-			<li>
-				<a href="#">
+			<li class="{{ request()->routeIs('pendonor') ? 'active' : '' }}">
+				<a href="{{ route('pendonor') }}">
 					<i class='bx bx-donate-blood'></i>
 					<span class="text">Pendonor</span>
 				</a>
 			</li>
-			<li>
-				<a href="#">
+			<li class="{{ request()->routeIs('stokdarah') ? 'active' : '' }}">
+				<a href="{{ route('stokdarah') }}">
 					<i class='bx bxs-bank'></i>
 					<span class="text">Stok Darah</span>
+				</a>
+			</li>
+			<li>
+				<a href="#">
+					<i class='bx bx-history'></i>
+					<span class="text">Riwayat E-Donor</span>
 				</a>
 			</li>
 		</ul>
