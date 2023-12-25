@@ -15,6 +15,18 @@
 					<span class="text">Dashboard</span>
 				</a>
 			</li>
+			<li class="{{ request()->routeIs('riwayatdonor') ? 'active' : '' }}">
+				<a href="{{ route('riwayatdonor') }}">
+					<i class='bx bx-history'></i>
+					<span class="text">Riwayat E-Donor</span>
+				</a>
+			</li>
+			<li class="{{ request()->routeIs('stokdarah') ? 'active' : '' }}">
+				<a href="{{ route('stokdarah') }}">
+					<i class='bx bxs-bank'></i>
+					<span class="text">Stok Darah</span>
+				</a>
+			</li>
 			<li class="{{ request()->routeIs('user') ? 'active' : '' }}">
 				<a href="{{ route('user') }}">
 					<i class='bx bxs-group'></i>
@@ -33,18 +45,13 @@
 					<span class="text">Pendonor</span>
 				</a>
 			</li>
-			<li class="{{ request()->routeIs('stokdarah') ? 'active' : '' }}">
-				<a href="{{ route('stokdarah') }}">
-					<i class='bx bxs-bank'></i>
-					<span class="text">Stok Darah</span>
+			<li class="{{ request()->routeIs('pendonor') ? 'active' : '' }}">
+				<a href="{{ route('pendonor') }}">
+					<i class='bx bx-archive-out'></i>
+					<span class="text">Penerima</span>
 				</a>
 			</li>
-			<li class="{{ request()->routeIs('riwayatdonor') ? 'active' : '' }}">
-				<a href="{{ route('riwayatdonor') }}">
-					<i class='bx bx-history'></i>
-					<span class="text">Riwayat E-Donor</span>
-				</a>
-			</li>
+
 		</ul>
 		<ul class="side-menu">
 			<li>

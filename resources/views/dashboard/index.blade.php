@@ -24,22 +24,29 @@
         <li>
             <i class='bx bxs-calendar-check'></i>
             <span class="text">
-                <h3>1020</h3>
-                <p>New Order</p>
+                <h3>5</h3>
+                <p>User</p>
             </span>
         </li>
         <li>
             <i class='bx bxs-group'></i>
             <span class="text">
-                <h3>2834</h3>
-                <p>Visitors</p>
+                <h3>278</h3>
+                <p>Pendonor</p>
             </span>
         </li>
         <li>
             <i class='bx bxs-dollar-circle'></i>
             <span class="text">
-                <h3>$201000</h3>
-                <p>Total Sales</p>
+                <h3>200</h3>
+                <p>Penerima</p>
+            </span>
+        </li>
+        <li>
+            <i class='bx bxs-dollar-circle'></i>
+            <span class="text">
+                <h3>200</h3>
+                <p>Penerima</p>
             </span>
         </li>
     </ul>
@@ -47,7 +54,7 @@
     <div class="table-data">
         <div class="order">
             <div class="head">
-                <h3>Recent Orders</h3>
+                <h3>Stok Darah</h3>
             </div>
             <table>
                 <thead>

@@ -1,0 +1,33 @@
+﻿
+Tabel Pendonor:
+
+Nama
+Alamat
+Nomor Kontak
+Email
+Password
+Informasi Kesehatan (opsional, jika diperlukan)
+Golongan Darah
+Faktor Rh
+
+
+Tabel Stok Darah:
+
+uniqueid
+Jumlah
+Jenis Darah
+Golongan
+Tanggal Donor
+Tanggal Kadaluarsa
+Masa Aktif Darah
+
+
+Tabel Riwayat Pendonor:
+
+Jenis Transaksi (Donor / Penerima)
+Penerima (Intansi / Personal)
+Tanggal Transaksi
+Jumlah Darah(Lt)
+Golongan Darah
+Keterangan Tambahan
+

@@ -28,9 +28,10 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
+                        <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
                         <li class="nav-item"><a class="nav-link" href="#services">Lokasi Donor</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#portfolio">Step Donor</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#portfolio">Event</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#about">Step Donor</a></li>
                         <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
                         <li class="nav-item"><a class="btn btn-secondary text-uppercase" href="">Login</a></li>
                     </ul>
@@ -38,7 +39,7 @@
             </div>
         </nav>
         <!-- Masthead-->
-        <header class="masthead">
+        <header class="masthead" id="home">
             <div class="container">
                 <div class="masthead-subheading">Selamat Datang Di E-DONOR!</div>
                 <div class="masthead-heading text-uppercase">Sudahkah Anda Donor Darah Hari Ini? </div>
@@ -49,7 +50,7 @@
         <section class="page-section" id="services">
             <div class="container">
                 <div class="text-center">
-                    <h2 class="section-heading text-uppercase">Event</h2>
+                    <h2 class="section-heading text-uppercase">Lokasi Donor</h2>
                     <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
                 </div>
                 <div class="row text-center">
@@ -84,7 +85,7 @@
         <section class="page-section bg-light" id="portfolio">
             <div class="container">
                 <div class="text-center">
-                    <h2 class="section-heading text-uppercase">Portfolio</h2>
+                    <h2 class="section-heading text-uppercase">Event</h2>
                     <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
                 </div>
                 <div class="row">
@@ -98,8 +99,8 @@
                                 <img class="img-fluid" src="{{ asset('home/assets/img/portfolio/1.jpg') }}" alt="..." />
                             </a>
                             <div class="portfolio-caption">
-                                <div class="portfolio-caption-heading">Threads</div>
-                                <div class="portfolio-caption-subheading text-muted">Illustration</div>
+                                <div class="portfolio-caption-heading">Rutan Batam x PMI</div>
+                                <div class="portfolio-caption-subheading text-muted">Kegiatan Donor</div>
                             </div>
                         </div>
                     </div>
@@ -392,22 +393,29 @@
         <div class="portfolio-modal modal fade" id="portfolioModal1" tabindex="-1" role="dialog" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
-E-Donor
-Dashboard
-User
-Lokasi Donor
-Pendonor
-
                     <div class="close-modal" data-bs-dismiss="modal"><img src="assets/img/close-icon.svg" alt="Close modal" /></div>
                     <div class="container">
                         <div class="row justify-content-center">
                             <div class="col-lg-8">
                                 <div class="modal-body">
                                     <!-- Project details-->
-                                    <h2 class="text-uppercase">Project Name</h2>
+                                    <h2 class="text-uppercase">Peringati HDKD ke-78, Rutan Batam Bersama PMI Gelar Kegiatan Donor Darah</h2>
                                     <p class="item-intro text-muted">Lorem ipsum dolor sit amet consectetur.</p>
-                                    <img class="img-fluid d-block mx-auto" src="assets/img/portfolio/1.jpg" alt="..." />
-                                    <p>Use this area to describe your project. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est blanditiis dolorem culpa incidunt minus dignissimos deserunt repellat aperiam quasi sunt officia expedita beatae cupiditate, maiores repudiandae, nostrum, reiciendis facere nemo!</p>
+                                    <img class="img-fluid d-block mx-auto" src="{{ asset('home/assets/img/portfolio/1.jpg') }}" alt="..." />
+                                    <p>MC Pemko Batam – Sekretaris Daerah Kota Batam, Jefridin, M. Pd mewakili Wali Kota Batam, Muhammad Rudi menghadiri Kegiatan Sosial Donor Darah yang diselenggarakan Kerukunan Keluarga Sulawesi Utara (KKSU) Kota Batam, menggandeng Polda Kepri, Marinir Batam, Pemko Batam dan Palang Merah Indonesia (PMI) Kota Batam.
+
+                                        “Apresiasi dan terimakasih atas terselenggaranya salah satu kegiatan sosial kemanusiaan, berupa donor darah. Semoga menghasilkan sesuatu yang baik ditengah masyarakat,” ujar Jefridin, di One Batam Mall, Sabtu (8/7/2023).
+                                        
+                                        Terima kasih juga disampaikan Jefridin kepada pendonor dari beberapa stakeholder yang telah memberikan darahnya, untuk kemanusiaan dan memenuhi kecukupan stok darah di Kota Batam.
+                                        
+                                        “Saya merasakan betul pentingnya donor darah. Dimana ketika istri saya yaitu ibu Ketua Dharma Wanita Kota Batam, Hariyanti sangat membutuhkan donoran darah A+. Betapa pentingnya darah ini untuk nyawa seseorang, itulah bukti nyata bentuk kemanusiaan,” katanya.
+                                        
+                                        Jefridin mengajak para pendonor dan stakeholder untuk bersama pemerintah bergandeng tangan, melaksanakan berbagai kegiatan sosial dan membangun masyarakat Batam yang sehat dan sejahtera.
+                                        
+                                        “Mudah – mudahan kegiatan sosial kemanusiaan ini dapat terlaksana dengan baik, dan PMI dapat terus berkerjasama dengan masyarakat menuju Batam sejahtera,” ujar Jefridin disambut tepuk tangan para pendonor yang hadir.
+                                        
+                                        Sebagaimana amanat Wali Kota Batam Muhammad Rudi, Jefridin turut mengajak seluruh masyarakat untuk bersinergi menjaga Batam agar tetap aman dan kondusif serta bersih dari sampah.
+                                        </p>
                                     <ul class="list-inline">
                                         <li>
                                             <strong>Client:</strong>
